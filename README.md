@@ -1,6 +1,15 @@
+brain storm done for ideas for blog site for user stories
+
+kanban created and user stories added to project 
+
+created a blog web app with the functionality to display a line of text in the browser.
+
+
+
+[---------------------------------------------------------------------]
 ![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
 
-Welcome USER_NAME,
+Welcome mairead white,
 
 This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
 
@@ -129,3 +138,5 @@ Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` f
 ---
 
 Happy coding!
+
+
