@@ -31,7 +31,7 @@ class Post(CreateUpdateModel):
         User, on_delete=models.CASCADE, related_name="blog_posts"
         )
     excerpt = models.TextField(blank=True)
-
+    # pillow needs to be installed for hero image above
     class Comment(CreateUpdateModel):
         text = models.TextField()
         post = models.ForeignKey(Post, on_delete=models.CASCADE)
