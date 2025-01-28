@@ -15,6 +15,21 @@ class CreateUpdateModel(models.Model):
     class Meta:
         abstract = True
 
+# category model
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name
+
+# tag model
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
+
 class Post(CreateUpdateModel):
     # post_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=200, unique=True)
@@ -49,39 +64,23 @@ class Comment(CreateUpdateModel):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     # on delete=models.casecade when we delete the post the comment is also deleted
     author = models.ForeignKey(
-    User, on_delete=models.CASCADE, related_name="blog_comments"
-        )
+    User, on_delete=models.CASCADE, related_name="blog_comments")
     is_comment_approved = models.BooleanField(default=False)
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
 
 
     def __str__(self):
        return f'Comment by {self.author} on {self.post}'  
+
     class Meta:
         ordering = ['creation_date']
      
    
    # replaced by is_draft status = models.IntegerField(choices=STATUS, default=0)
 
-# custom user model
-class User(User):
-    email = models.EmailField(unique=True)
-    is_admin = models.BooleanField(default=False)
 
-    def __str__(self):
-            return self.undername
 
-# category model
-class Category(model.Models):
-    name = models.CharField(max_length=100)
-    description = models.TextField(blank=True)
 
-    def __str__(self):
-        return self.name
 
-# tag model
-class Tag(model.models):
-    name = models.CharField(max_length=50, unique=True)
 
-    def __str__(self):
-        return self.name
+
