@@ -14,9 +14,6 @@ class CreateUpdateModel(models.Model):
     class Meta:
         abstract = True
 
-
-     
-
 class Post(CreateUpdateModel):
     # post_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=200, unique=True)
@@ -31,20 +28,29 @@ class Post(CreateUpdateModel):
         User, on_delete=models.CASCADE, related_name="blog_posts"
         )
     excerpt = models.TextField(blank=True)
-    # pillow needs to be installed for hero image above
-    class Comment(CreateUpdateModel):
-        text = models.TextField()
-        post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    # on delete=models.casecade when we delete the post the comment is also deleted
-        author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="blog_posts"
-        )
-        is_comment_approved = models.BooleanField(default=False)
-     
+    # pillow needs to be installed for hero image abovepython
+
     def __str__(self):
         return self.title
 
     class Meta:
        ordering = ['-creation_date']
 
+
+class Comment(CreateUpdateModel):
+    text = models.TextField()
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    # on delete=models.casecade when we delete the post the comment is also deleted
+    author = models.ForeignKey(
+    User, on_delete=models.CASCADE, related_name="blog_comments"
+        )
+    is_comment_approved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'Comment by {self.author} on {self.post}'
+
+    class Meta:
+        ordering = ['creation_date']
+     
+   
    #replaced by is_draft status = models.IntegerField(choices=STATUS, default=0)

@@ -4,6 +4,9 @@ kanban created and user stories added to project
 
 created a blog web app with the functionality to display a line of text in the browser.
 
+![Wireframes image 1](/pictures/New%20Wireframe%201.png)
+
+![Wireframes image 1](/pictures/New%20Wireframe%202.png)
 
 
 [---------------------------------------------------------------------]
