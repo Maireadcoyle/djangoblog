@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 STATUS = ((0, "Draft"), (1, "Published"))
 
@@ -30,9 +31,13 @@ class Post(CreateUpdateModel):
     excerpt = models.TextField(blank=True)
     # pillow needs to be installed for hero image abovepython
 
-    def __str__(self):
-        return self.title
+    # def __str__(self):  updated below
+    #    return self.title
 
+    def __str__(self):
+        return f"{self.title} | written by {self.author}"   
+
+    # The - prefix on created_on indicates the posts are displayed in descending order of creation date. If no leading - is used, then the order is ascending, and if a ? prefix is used, then the order is randomised.
     class Meta:
        ordering = ['-creation_date']
 
@@ -47,10 +52,25 @@ class Comment(CreateUpdateModel):
     is_comment_approved = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'Comment by {self.author} on {self.post}'
-
+       return f'Comment by {self.author} on {self.post}'  
     class Meta:
         ordering = ['creation_date']
      
    
-   #replaced by is_draft status = models.IntegerField(choices=STATUS, default=0)
+   # replaced by is_draft status = models.IntegerField(choices=STATUS, default=0)
+
+# custom user model
+class User(User):
+    email = models.EmailField(unique=True)
+    is_admin = models.BooleanField(default=False)
+
+    def __str__(self):
+            return self.undername
+
+# category model
+class Category(model.Models):
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name
