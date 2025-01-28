@@ -9,7 +9,7 @@ STATUS = ((0, "Draft"), (1, "Published"))
 
 #createupdatemodel stops you from having to repeat code in different models
 class CreateUpdateModel(models.Model):
-    creation_date = models.DateTimeField(auto_now_add=True)
+    creation_date = models.DateTimeField(default=timezone.now)
     Update_date = models.DateTimeField(auto_now=True)
 #abstract=true will make sure the code above dosnt create a table
     class Meta:
@@ -29,6 +29,8 @@ class Post(CreateUpdateModel):
         User, on_delete=models.CASCADE, related_name="blog_posts"
         )
     excerpt = models.TextField(blank=True)
+    categories = models.ManyToManyField(Category, related_name='posts')
+    tags = models.ManyToManyField(Tag, related_name='posts')
     # pillow needs to be installed for hero image abovepython
 
     # def __str__(self):  updated below
@@ -43,13 +45,15 @@ class Post(CreateUpdateModel):
 
 
 class Comment(CreateUpdateModel):
-    text = models.TextField()
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    content = models.TextField()
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     # on delete=models.casecade when we delete the post the comment is also deleted
     author = models.ForeignKey(
     User, on_delete=models.CASCADE, related_name="blog_comments"
         )
     is_comment_approved = models.BooleanField(default=False)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+
 
     def __str__(self):
        return f'Comment by {self.author} on {self.post}'  
@@ -71,6 +75,13 @@ class User(User):
 class Category(model.Models):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name
+
+# tag model
+class Tag(model.models):
+    name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.name
