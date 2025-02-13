@@ -1,6 +1,16 @@
 from django.contrib import admin
 from .models import Post, Comment
+from django_summernote.admin import SummernoteModelAdmin # defines the text editor
+
+@admin.register(Post)
+class PostAdmin(SummernoteModelAdmin): # give your admin panel greater functionality and clarity.
+
+    list_display = ('title', 'slug', 'status')
+    search_fields = ['title']
+    list_filter = ('status', 'is_draft', 'is_featured')
+    prepopulated_fields = {'slug': ('title',)}
+    summernote_fields = ('content',)
+
 
 # Register your models here.
-admin.site.register(Post)
 admin.site.register(Comment)

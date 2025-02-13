@@ -31,10 +31,19 @@ class Tag(models.Model):
         return self.name
 
 class Post(CreateUpdateModel):
+    STATUS_CHOICES = (
+        ('draft', 'Draft'),
+        ('published', 'Published'),
+    )
     # post_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
     content = models.TextField()
+    status = models.CharField(  #fixed using AI
+        max_length=10,
+        choices=STATUS_CHOICES,
+        default='draft'
+    )
    # creation_date = models.DateTimeField(auto_now_add=True) no need for these two lines now due to createupdatemodel parent
    # Update_date = models.DateTimeField(auto_now=True)
     is_draft = models.BooleanField(default=True)
@@ -76,7 +85,7 @@ class Comment(CreateUpdateModel):
         ordering = ['creation_date']
      
    
-   # replaced by is_draft status = models.IntegerField(choices=STATUS, default=0)
+#is_draft status = models.IntegerField(choices=STATUS, default=0)
 
 
 

@@ -29,7 +29,8 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-maireadcoyle-djangoblog-15f9oiyuvfm.ws.codeinstitute-ide.net', '.herokuapp.com',]
+ALLOWED_HOSTS = ['8000-maireadcoyle-djangoblog-15f9oiyuvfm.ws.codeinstitute-ide.net', '.herokuapp.com', '127.0.0.1'
+, 'localhost',]
 
 
 # Application definition
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_summernote',
     'blog',
     
 ]
@@ -75,7 +77,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'codestar.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -87,7 +88,7 @@ WSGI_APPLICATION = 'codestar.wsgi.application'
 #}
 
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL", "sqlite:///db.sqlite3"))
 }
 
 CSRF_TRUSTED_ORIGINS = [
