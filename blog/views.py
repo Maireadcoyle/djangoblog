@@ -6,7 +6,9 @@ from .models import Post
 # Create your views here.
 class PostList(generic.ListView):
     queryset = Post.objects.filter(creation_date__lte=timezone.now()).order_by('-creation_date')
-    template_name = "post_list.html"
+    template_name = "blog/index.html"
+    paginate_by = 6 # what does this mean?
+    
 #    model = Post
 
     
