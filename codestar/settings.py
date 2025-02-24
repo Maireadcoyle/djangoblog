@@ -27,10 +27,6 @@ if os.path.exists('env.py'):
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
-
 
 
 
@@ -60,6 +56,7 @@ DATABASES = {
 }
 if 'test' in sys.argv:
     DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
+    
 #DATABASES = {
  #   'default': dj_database_url.parse(os.environ.get("DATABASE_URL",
 #"sqlite:///db.sqlite3"))
@@ -81,7 +78,7 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'cloudinary',
     'django_summernote',
-    'blog',
+    'blog', 'about'
     
 ]
 
@@ -103,7 +100,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [TEMPLATES_DIR],
         
-        'APP_DIRS': False,
+        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -120,8 +117,9 @@ WSGI_APPLICATION = 'codestar.wsgi.application'
 
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://*.codeinstitute-ide.net/",
-    "https://*.herokuapp.com"
+    "https://*.herokuapp.com",
+    "https://oyster-blog-b4448cb453b3.herokuapp.com"
+    
 ]
 
 # Password validation
@@ -167,24 +165,21 @@ cloudinary.config(
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
-#STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+#STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage' # for debugging
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] # for local development
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # for production
 
-STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-]
+#STATICFILES_FINDERS = [
+#    'django.contrib.staticfiles.finders.FileSystemFinder',
+#    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+
 
 
 
 MEDIA_URL = '/media/'
-
-print("BASE_DIR:", BASE_DIR)
-print("STATICFILES_DIRS:", STATICFILES_DIRS)
-print("STATIC_ROOT:", STATIC_ROOT)
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 
